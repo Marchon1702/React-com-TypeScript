@@ -1,0 +1,43 @@
+Unindo o react ao typeScript.
+
+Quando começamos um projeto com create-react-app, ele cria uma estrutura de pastas de uma aplicação react com javaScript, para adicionarmos typeScript a uma aplicação React criada nesse contexto, devemos instalar o typeScript puro e suas extensões para as bibliotecas do React.
+
+"npm install --save typescript @types/node @types/react @types/react-dom @types/jest"
+
+Esse comando instala quase tudo que é necessário para começarmos a desenvolver em React com TypeScript.
+
+Após isso devemos criar um tsconfig.json
+
+Isso pode ser feito manualmente ou através do comando "npx tsc --init".
+
+Esse comando usa o npx que é uma forma de usar um recurso de uma biblioteca npm de forma remota.
+
+Após gerado fazemos uma alteração na sua configuração 
+
+descomentamos o "jsx": 'preserve'
+
+e adicionamos o "jsx": "react-jsx"
+
+Isso fará com que o typeScript aceite arquivos tsx. 
+
+Adendo: se usarmos "jsx": "react"; teremos que importar o react em todos os components .tsx
+
+
+Tipando Props
+
+Para tipar uma props podemos criar uma interface, dentro dela deve conter todas as props do component e seus tipos.
+
+Ex: 
+
+interface ComponentProps {
+    texto: string
+}
+
+export Component = ({texto}: ComponentProps) => {
+    return (
+        <h1> {texto} <h1/>
+    )
+}
+
+Adendo: Quando chamamos um chlidren seu tipo pode ser declarado como ReactElement;
+
