@@ -1,0 +1,50 @@
+Tipagem de funções e funções de evento.
+
+Quando usamos uma função de evento ex: "onChange" em React e na chamada de função queremos capturar o evento, devemos tipar esse evento declarando o tipo de função que ele captura tal evento.
+
+Ex: 
+const aoDigitado = (evento) => {
+    aoAlterado(evento.target.value);
+  };
+
+{
+    <input 
+        onChange={aoDigitado}
+    />
+}
+
+função aoAlterado chamada onde CampoTexto é importado: aoAlterado={valor => setNome(valor)}
+
+Considerando que ao alterado é uma props, devemos declarar seu tipo na interface do componente.
+
+interface ComponenteProps {
+    aoAlterado: (valor: string) => void
+}
+
+Acima declaramos que aoAlterado é uma função que recebe um argumento para o parâmetro valor, do tipo string e que essa função não retorna nada (void).
+
+aoDigitado é uma funçÃo criada no próprio componente que serve para chamar aoAlterado que foi passado como props.
+
+const aoDigitado = (evento) => {
+    aoAlterado(evento.target.value);
+};
+
+Na criação de aoDigitado devemos tipar seu parâmetro que nesse caso é um capturador de evento, devemos tipa-lo em relação a qual tipo de evento ele captura que nesse caso é onChange.
+Para acharmos qual tipo do evento de onChange podemos usar um macete.
+
+<input 
+    onChange={evento => aoDigitado}
+/>
+
+Ao passar o mouse sobre a palavra evento o vsCode atrelado ao typeScript retornará seu tipo se baseando no contexto da sua chamada.
+
+que nesse caso é "React.ChangeEvent<HTMLInputElement>". Entao declaramos o tipo do evento como:
+
+const aoDigitado = (evento: React.ChangeEvent<HTMLInputElement>) => {
+    aoAlterado(evento.target.value);
+  };
+
+Assim corrigindo os erros. Também podemos usar um tipo generico para evento chamado React.SyntheticEvent. Essa tipagem serve para eventos de forma geral caso não tenhamos a intenção de sermos tão especificos.
+
+
+

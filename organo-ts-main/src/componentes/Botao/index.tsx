@@ -5,8 +5,8 @@ interface BotaoProps {
     children: ReactElement;
 }
 
-const Botao = (props: BotaoProps) => {
-  return <button className="botao">{props.children}</button>;
+const Botao = ({children}: BotaoProps) => {
+  return <button className="botao">{children}</button>;
 };
 
 export default Botao;
