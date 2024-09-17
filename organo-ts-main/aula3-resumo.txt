@@ -1,0 +1,19 @@
+Criando uma interface mais Globalizada.
+
+Quando temos um array que contém objetos com um padrão, devemos criar uma interface para ele.
+
+Tendo em vista que esse objeto pode fazer parte da regra de negócio de um projeto, ou seja, ele é usado em diversas partes do projeto, então podemos criar na pasta shares ou compartilhados/ interfaces, uma interface global para esse determinado objeto.
+
+Ex: export interface IColaboradores {
+    nome: string,
+    cargo: string,
+    imagem: string
+}
+
+Quando temos em um componente uma prop que recebe um array de Colaboradores, declaramos ele da segunda forma.
+
+interface ComponenteProps {
+    colaboradores: IColaboradores[]
+}
+
+Lembrando que definimos essa interface global para colaborador que deve conter nome, cargo, imagem, caso a prop colaboradores não tenha vetores(arrays) com objetos com exatamente esses atributos, ocorrerá um erro. 

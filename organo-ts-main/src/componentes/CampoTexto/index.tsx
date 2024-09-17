@@ -5,7 +5,7 @@ interface CampoTextoProps {
   aoAlterado: (valor: string) => void
   label: string,
   valor: string
-  obrigatorio: boolean
+  obrigatorio?: boolean
 }
 
 const CampoTexto = ({
@@ -13,7 +13,7 @@ const CampoTexto = ({
   aoAlterado,
   label,
   valor,
-  obrigatorio,
+  obrigatorio = false
 }: CampoTextoProps) => {
   const placeholderModificada = `${placeholder}...`;
 
