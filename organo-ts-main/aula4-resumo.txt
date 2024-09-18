@@ -1,0 +1,68 @@
+Formas de referenciar um componente que pode retornar um ReactElement ou ''.
+
+Imagine que temos um componente que verifica se alguma condição existe para que esse seja renderizado ou caso contrario o componente retorna ''.
+
+function Componente() {
+    return array.lenght > 0 ? (
+        <h1>Hello World!<h1/>
+    ): ''
+};
+
+
+Esse componente só retorna hello world se determinada condiçÃo for atendida, caso contrario ela retorna ''.
+
+Porém um componente por padrão deve retornar um JSX (ReactElement), se declararmos que caso a condição não for atendida o componente retorna ''. Isso seria dizer que o componente retorna uma string. 
+
+Para resolver isso podemos tratar essa lógica condicional fora do componente antes de sua renderização, ou então podemos dentro do componente ao invés de retornar '', retornar um React Fragment <></>. Assim de qualquer forma um componente irá retornar um ReactElement mesmo que um React Fragment não seja aplicado nos elementos de uma pagina HTML.
+
+Generics com useState.
+
+O useState no React é um hook essencial, aliado ao typeScript, devemos ter certos cuidados ao usa-lo.
+
+Ao declarar: const [nomePessoa, setNomePessoa] = useState('Matheus');
+
+Você está dizendo que a variavel nomePessoa recebe uma string 'Matheus'.
+
+Agora ao declarar: 
+
+const [pessoas, setPessoas] = useState([]);
+
+Você está dizendo que a variavel pessoa recebe um array vazio(never) do tipo "never".
+Isso não funcionará porque o typeScript nÃo conseguirá inferir o tipo de dado que o array irá conter.
+
+Para resolver isso, devemos utilizar o Generics. 
+
+const [pessoas, setPessoas] = useState<number[]>([]);
+
+Agora o useState sabe que a variavel pessoas inicia vazia porém receberá dados do tipo "number";
+
+Diferença de Type e Interface
+
+Eles são quase iguais, sua única diferença mais explicita é que type não pode ser redeclarado e interface podem.
+
+Ex: type Pessoa {
+    nome: string
+}
+
+type Pessoa {
+    altura: number
+}
+
+ISSO NÃO FUNCIONA.
+
+Com interface funciona:
+
+Ex: interface Pessoa {
+    nome: string
+}
+
+interface Pessoa {
+    altura: number
+}
+
+ISSO FUNCIONA.
+
+Conclusão: O uso de interface é o mais recomendado pela Microsoft, porém em casos especificos onde a redeclaração não seja bem vinda, pode ser melhor usar type, o uso de cada um varia de acordo com a situação.
+
+
+
