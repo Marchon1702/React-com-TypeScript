@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import Formulario from "./componentes/Formulario";
 import Time from "./componentes/Time";
 
-import Banner from './componentes/Banner';
+import Banner from "./componentes/Banner";
+import IColaborador from "./compartilhados/interfaces/IColaborador";
 
 function App() {
   const times = [
@@ -43,16 +44,15 @@ function App() {
     },
   ];
 
-  const [colaboradores, setColaboradores] = useState([]);
+  const [colaboradores, setColaboradores] = useState<IColaborador[]>([]);
 
-  const aoNovoColaboradorAdicionado = (colaborador) => {
-    debugger;
+  const aoNovoColaboradorAdicionado = (colaborador: IColaborador) => {
     setColaboradores([...colaboradores, colaborador]);
   };
 
   return (
     <div className="App">
-      <Banner 
+      <Banner
         enderecoImagem="/imagens/banner.png"
         textoAlternativo="O banner principal da página do Organo"
       />
@@ -62,18 +62,20 @@ function App() {
           aoNovoColaboradorAdicionado(colaborador)
         }
       />
-
-      {times.map((time) => (
-        <Time
-          key={time.nome}
-          nome={time.nome}
-          corPrimaria={time.corPrimaria}
-          corSecundaria={time.corSecundaria}
-          colaboradores={colaboradores.filter(
-            (colaborador) => colaborador.time === time.nome
-          )}
-        />
-      ))}
+      {times.map((time): ReactElement | null => {
+        if (times.length === 0) return null;
+        return (
+          <Time
+            key={time.nome}
+            nome={time.nome}
+            corPrimaria={time.corPrimaria}
+            corSecundaria={time.corSecundaria}
+            colaboradores={colaboradores.filter(
+              (colaborador) => colaborador.time === time.nome
+            )}
+          />
+        );
+      })};
     </div>
   );
 }

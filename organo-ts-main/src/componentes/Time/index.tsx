@@ -1,7 +1,6 @@
 import Colaborador from "../Colaborador";
 import "./Time.css";
 import IColaborador from "../../compartilhados/interfaces/IColaborador";
-import React from "react";
 
 interface TimeProps {
   corPrimaria: string;
@@ -18,7 +17,7 @@ const Time = ({
 }: TimeProps) => {
   const css = { backgroundColor: corSecundaria };
 
-  return colaboradores.length > 0 ? (
+  return (
     <section className="time" style={css}>
       <h3 style={{ borderColor: corPrimaria }}>{nome}</h3>
       <div className="colaboradores">
@@ -33,9 +32,7 @@ const Time = ({
         ))}
       </div>
     </section>
-  ) : (
-    ""
-  );
+  )
 };
 
 export default Time;
