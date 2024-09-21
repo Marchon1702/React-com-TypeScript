@@ -1,9 +1,9 @@
 import { ReactElement, useState } from "react";
+import IColaborador from "./compartilhados/interfaces/IColaborador";
+
 import Formulario from "./componentes/Formulario";
 import Time from "./componentes/Time";
-
 import Banner from "./componentes/Banner";
-import IColaborador from "./compartilhados/interfaces/IColaborador";
 
 function App() {
   const times = [
@@ -63,7 +63,11 @@ function App() {
         }
       />
       {times.map((time): ReactElement | null => {
-        if (times.length === 0) return null;
+        if(colaboradores.length <= 0) return null;
+        const temColaborador = colaboradores.some(colaborador => colaborador.time === time.nome)
+        console.log(temColaborador)
+        if(!temColaborador) return null;
+
         return (
           <Time
             key={time.nome}

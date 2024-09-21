@@ -4,10 +4,11 @@ interface ColaboradorProps {
     nome: string,
     cargo: string,
     imagem: string,
+    data: string,
     corDeFundo: string
 }
 
-const Colaborador = ({ nome, cargo, imagem, corDeFundo }: ColaboradorProps) => {
+const Colaborador = ({ nome, cargo, imagem, data, corDeFundo }: ColaboradorProps) => {
     return (<div className='colaborador'>
         <div className='cabecalho' style={{ backgroundColor: corDeFundo }}>
             <img src={imagem} alt={nome}/>
@@ -15,6 +16,7 @@ const Colaborador = ({ nome, cargo, imagem, corDeFundo }: ColaboradorProps) => {
         <div className='rodape'>
             <h4>{nome}</h4>
             <h5>{cargo}</h5>
+            <h5>{new Date(data).toLocaleDateString()}</h5>
         </div>
     </div>)
 }

@@ -17,7 +17,7 @@ const Time = ({
 }: TimeProps) => {
   const css = { backgroundColor: corSecundaria };
 
-  return (
+    return (
     <section className="time" style={css}>
       <h3 style={{ borderColor: corPrimaria }}>{nome}</h3>
       <div className="colaboradores">
@@ -28,6 +28,7 @@ const Time = ({
             nome={colaborador.nome}
             cargo={colaborador.cargo}
             imagem={colaborador.imagem}
+            data={colaborador.data}
           />
         ))}
       </div>
