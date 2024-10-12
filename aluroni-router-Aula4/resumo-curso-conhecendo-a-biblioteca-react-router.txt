@@ -8,4 +8,11 @@ LINK, sua diferença para "a" é que o "a": Renderiza o HTML por completo, oque 
 apenas oque for necessário para otimizar a performace, o Link, atende esse requisíto pois quando utilizamos ele, o React
 através do VIRTUAL DOM verifica qual componente foi alterado e renderiza apenas aquela parte, reaproveitando os 
 componentes anteriores.
+
+UseNagivate
+
+Esse é um hook de react-router-dom, ele é utilizado para navegar em páginas "guardadas" pelo historico de navegações anteriores,
+imagine q seu cliente caiu em uma rota que não existe e você configurou um NotFound, e nesse componente você deseja
+que ele seja redicionado a rota anterior através de um botão, o useNavigate serve para isso, ele recebe parâmetro como,
+string(nome da rota que você pode ser redirecionado) ou número(-1 = rota anterior, 1 rota à frente);
  
