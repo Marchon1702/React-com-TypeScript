@@ -1,0 +1,60 @@
+Utilizando Docker.
+
+Docker é uma tecnologia que substitui o uso de VMs(virtual machine), adotando containers.
+
+As VMs são maquinas virtuais que serve como servidor para hospedar uma Api por exemplo, cada VM precisa de um Sistema Operacional para rodar sua aplicação, ou seja, se você tiver 10 VMs, você terá que administrar 10 Sistemas Operacionais por vez.
+
+Os containers do Docker são alocados em uma mini VM por baixo dos panos que serve para administra-los, e todas as aplicações são dependentes de um Unico SO, facilitando a manutenibilidade dos containers e de suas aplicações hospedadas neles.
+
+Para criar um container no Docker você pode ir no terminal, acessar o caminho da aplicação que você deseja hospedar, após isso digitar "docker-compose build" e para iniciar a mesma utilzamos "docker-compose up", isso inicializará o servidor com a API geralmente na porta 8000.
+
+Obtendo arquivos da API, com o swagger, todos os endPoints da Api são mostrados de forma prática, podemos clicar em try Out, depois execute, que ela mostra todos os dados que serão retornados em response.data, além da url do endPoint.
+
+Utilizando Axios
+
+Junto com o useEffect para que a requisição seja feita quando o componente for montado, usamos axios.
+
+Ex: useEffect(() => {
+    axios.get('endPoint.com')
+        .then(response => {
+            ...oque deseja fazer com a response.
+        }) 
+}, []);
+
+Utilizando um dado de um componente que será renderizado mais de uma vez.
+
+Supondo que queiramos criar um componente que faz uma requisição de acordo com uma prop.
+
+Api retorna pessoa = {
+    id: number
+    nome: string,
+    idade: number
+    classe: 1
+}
+
+const classes = [{
+    nome: 'baixa'
+    id: 1
+    },
+    {
+        nome: 'média',
+        id: 2
+    }]
+
+{classes.map(classe => (
+    <ComponenteDeClasses
+        classes={classes}
+    />))}
+
+Supondo que o ComponenteDeClasses é retornado de acordo com a quantidade de arrays em classes, que são objetos que tem {nome, id} e a requisição da API usa o id de classes como parâmetro, para relacionar pessoa a classe. Podemos usar o useEffect para que cada vez que a prop classe mudar, uma nova requisição seja feita, considerando o fato de que toda vez que o ComponenteDeClasses for renderizado sua prop, classes receberá um novo valor.
+
+function ComponenteDeClasses({classes}) {
+    useEffect(() => {
+        axios.get(`url${classe.id}...`)...
+    }, [classe.id])
+
+    return (
+        <h1>Olá Mundo</h1>
+    )
+}
+

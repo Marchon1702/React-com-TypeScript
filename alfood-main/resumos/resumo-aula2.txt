@@ -1,0 +1,13 @@
+sobre o MUI
+
+É uma biblioteca de components muito pertinente em situações na qual queremos focar na logica do projeto e menos em Layout.
+
+Siga a documentação e instale da forma adequada para usar.
+
+Usando o método "POST"
+
+Para adicionar um novo dado a uma Api Rest, é comum utilizarmos o POST, a com a documentação da API irá te fornecer que tipo de dado ela espera, e esse dado deve ser fornecido como segundo parâmetro do Axios. 
+
+Ex:
+    axios.post('urlEndPoint', {nome: 'Matheus'})
+        .then( response => console.log(response.data))
