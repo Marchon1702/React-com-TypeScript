@@ -1,0 +1,47 @@
+Criando um instância do axios
+
+Em uma aplição usando requisições com axios, é normal que tenhamos que repetir uma url diversas vezes, as vezes apenas adicionando um parametro a mais, porém a base sempre sendo repetida, e se essa url base mudar algum dia, teriamos muito trabalho para refatorar todas as requisições.
+
+E por isso que temos uma forma de padronizar uma url base criando uma instância do axios.
+
+Ex: 
+    const axios = axios.create({
+        baseUrl: 'urlBase'
+    })
+
+Assim, todas as requisições devem ser iniciadas com http.metodo("caso tenha, aqui fica a variação da url").
+
+Códigos de Status de Sucesso
+
+200 OK: Indica que a requisição foi bem-sucedida e que a resposta contém os dados solicitados.
+
+201 Created: Usado em operações de criação (como POST) para indicar que um novo recurso foi criado com sucesso.
+
+204 No Content: Indica que a requisição foi bem-sucedida, mas não há conteúdo a retornar (geralmente usado em DELETE).
+
+Códigos de Status de Redirecionamento
+
+301 Moved Permanently: Indica que o recurso foi movido permanentemente para uma nova URL.
+
+302 Found: Usado para redirecionamento temporário; o recurso pode estar em outra URL, mas a localização pode mudar.
+
+Códigos de Status de Erro do Cliente
+
+400 Bad Request: Indica que a requisição não pôde ser entendida pelo servidor devido a uma sintaxe inválida.
+
+401 Unauthorized: Indica que a autenticação é necessária e que a autenticação falhou ou não foi fornecida.
+
+403 Forbidden: Indica que o servidor entendeu a requisição, mas se recusa a autorizá-la.
+
+404 Not Found: Indica que o recurso solicitado não foi encontrado no servidor.
+
+409 Conflict: Indica que houve um conflito ao processar a requisição, como uma tentativa de criar um recurso que já existe.
+
+Códigos de Status de Erro do Servidor
+
+500 Internal Server Error: Indica que houve um erro inesperado no servidor ao processar a requisição.
+
+502 Bad Gateway: Indica que o servidor agiu como um gateway ou proxy e recebeu uma resposta inválida do servidor upstream.
+
+503 Service Unavailable: Indica que o servidor não está disponível para processar a requisição, geralmente devido a manutenção ou sobrecarga.
+

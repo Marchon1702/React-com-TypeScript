@@ -1,0 +1,34 @@
+Usando o método PUT para alterar algum dado da API.
+
+O método PUT serve para editarmos algum dados através de uma requisição, ele recebe como parâmetro um atributo único que indica qual dado deve ser alterado e um com os novos dados a serem adicionados.
+
+Ex: axios.put(`url/${atributoUnico}/, { nome: 'Matheus'}`);
+
+Usando o método Delete para deletar algum dado da API.
+
+O método Delete serve para deletar algum dado e sua requisiçÃo recebe apenas a Url com um parâmetro de atributo único.
+
+Ex: axios.delete(`url/${atributoUnico}/`);
+
+Usando método GET com parâmetros
+
+O método GET serve para pegarmos dados de uma API, quando estamos usando o Axios, ele também pode receber um parâmetro do tipo AxiosRequestConfig, que é uma interface com diversos tipos de atributos, no caso do GET, a requisição pode receber um params que tem dois atributos servindo como ferramentas para pesquisa. O ordering e o search podem ser adicionados a uma requisição GET com o ordering servindo como "ordenador", podendo usar id ou nome do JSON a ser capturado por exemplo, o search é um atributo que serve como "buscador", ele recebe um valor do tipo string e busca a relação dessa string com todos os atributos do JSON a ser capturado.
+
+Ex: 
+    axios.get("url", {params: {
+        ordering: "nome do atributo que servirá como parâmetro para ordenação",
+        search: "string que será relacionada com o nome dos atributos capturados"
+      }
+    })
+
+Adendo sobre Link do react-router-dom;
+
+Para mandar um usuário para o caminho atual + o novo caminho, podemos adicionar apenas o valor do novo caminho, quando quiser mandar o usuário para um caminho único, utilizamos o "/caminhoUnico";
+
+Ex: 
+    Url atual: http://caminhoAtual
+
+    <Link to="/novocaminho"> Next </Link> -> Isso irá te redirecionar para um caminho único e novo. ex: http://novocaminho
+    
+    <Link to="novocaminho"> Next </Link> -> Isso irá te redirecionar para o caminho atual + /novocaminho. ex: http://caminhoAtual/novocaminho
+
