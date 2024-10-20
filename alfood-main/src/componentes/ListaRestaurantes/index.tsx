@@ -8,26 +8,20 @@ import { IPaginacao } from "../../interfaces/IPaginacao";
 const ListaRestaurantes = () => {
   const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([]);
   const [proximaPagina, setProximaPagina] = useState<string>("");
+  const [paginaAnterior, setPaginaAnterior] = useState<string>("");
 
   useEffect(() => {
+    carregarDados("http://localhost:8000/api/v1/restaurantes/")
+  }, []);
+
+  const carregarDados = (url: string) => {
     axios
-      .get<IPaginacao<IRestaurante>>(
-        " http://localhost:8000/api/v1/restaurantes/"
-      )
+      .get<IPaginacao<IRestaurante>>(url)
       .then((response) => {
         setRestaurantes(response.data.results);
         setProximaPagina(response.data.next);
-        })
-  }, []);
-
-  const verMais = () => {
-    axios.get<IPaginacao<IRestaurante>>(`${proximaPagina}`).then((response) => {
-      setRestaurantes((prevRestaurantes) => [
-        ...prevRestaurantes,
-        ...response.data.results,
-      ]);
-      setProximaPagina(response.data.next);
-    });
+        setPaginaAnterior(response.data.previous)
+      });
   };
 
   return (
@@ -38,7 +32,8 @@ const ListaRestaurantes = () => {
       {restaurantes?.map((item) => (
         <Restaurante restaurante={item} key={item.id} />
       ))}
-      {proximaPagina && <button onClick={verMais}>Ver Mais</button>}
+      <button onClick={() => carregarDados(paginaAnterior)} disabled={!paginaAnterior}>Página Anterior</button>
+      <button onClick={() => carregarDados(proximaPagina)} disabled={!proximaPagina}>Próxima Página</button>
     </section>
   );
 };
