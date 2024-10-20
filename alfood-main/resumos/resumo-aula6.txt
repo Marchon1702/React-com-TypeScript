@@ -1,0 +1,38 @@
+Enviando imagens para uma requisição POST ou PUT.
+
+Imagine que temos um formulário a ser enviado para incrementar dados a uma API, dentro desses arquivos temos uma imagem a ser recebida através de um <input type="file" />.
+
+Em react a captura do valor desse input seria padrão com onChange, mas temos algumas particularidades, ao capturar o "event.target.files" como parametro pro onChange ele é retornado como:
+
+FileList {0: File, length: 1}
+
+File {
+    name: 'lasanha.jpg', 
+    lastModified: 1729442636607, 
+    lastModifiedDate: Sun Oct 20 2024 13:43:56 GMT-0300 (Horário Padrão de Brasília), webkitRelativePath: '', size: 178235, …
+}
+: 
+FileList
+
+Uma requisiçÃo de API não aceita esse valor inteiro já que ele é um obj: FileList com atributo File na posição [0], esse atributo File que importa pra nós, setar ele de forma padrão não é possivel, pois o parâmetro da requisição POST ou PUT aceita somente textos. Então podemos enviar este arquivo com o método request de uma instância do axios para que ela seja feita de forma mais detalhada e correta.
+
+Ex: 
+
+const http = axios.create({
+    baseUrl: 'urlBase'
+})
+
+const formData = new FormData()
+formData.append("atributo", "valor")
+
+http.request({
+    url: 'destinoGeral' {/*Considerando que a url base já foi setada em http.*/},
+    method: 'POST' ou 'PUT' {/* Depende do método que deseja usar*/},
+    headers: {
+        "Content-Type": "multi-part/form-data"
+    } {/*Esse header ajuda na requisição para explicitar que o formData será enviado*/},
+    data: formData {/* Aqui você finalmente envia o arquivo que deseja para a API com a imagem.*/}
+})
+
+Adendo: formData também serve para arquivos comuns como apenas strings, então quando mandarmos outro atributo sem ser somente a imagem o formData.append também é usado.
+
