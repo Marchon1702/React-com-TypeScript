@@ -1,0 +1,55 @@
+Usando Recoil
+
+O recoil é uma biblioteca do React usada para controlar estados globais, ess lib tem a mesmo finalidade que o context-api, apesar de sua implementação ser diferente, no caso do Recoil cada estado é tratado como um átomo.
+
+Principios de uso de recoil.
+
+Dentro de app que é a camada mais alta da nossa aplicação, envolvemos o component com RecoilRoot, a partir dali todos os átomos criados dentro do Recoil poderão ser usados em qualquer parte da aplicação.
+
+Para criar um átomo podemos crirar uma pasta chamada "state" com um arquivo de nome "atom.ts", nele podemos export states, basta decalarar um key e um default.
+
+Uma key é uma chave única para cada state, o default é o valor primario que esse state receberá.
+
+Ex: 
+
+export const listaDeEventosState = atom<IEvento[]>({
+  key: "listaDeEventosState",
+  default: [
+    {
+      descricao: "Estudar React",
+      inicio: new Date("2022-01-15T09:00"),
+      fim: new Date("2022-01-15T13:00"),
+      completo: false,
+      id: 1642342747,
+    },
+    {
+      descricao: "Estudar Recoil",
+      inicio: new Date("2022-01-16T09:00"),
+      fim: new Date("2022-01-16T11:00"),
+      completo: false,
+      id: 1642342959,
+    },
+  ],
+});
+
+Como importar o state em diferentes partes da aplicação?
+
+Usando o hook useRecoilValue(nomeDoState), podemos importar ele para algum componente.
+Ex: const eventos = useRecoilValue(listaDeEventosState).
+
+Como setar um valor novo em um state do recoil?
+
+Usando o hook useSetRecoilState(nome do state que receberá um setter);
+Atribuindo isso a uma variavel "setadora", podemos usa-la no component.
+
+Ex: 
+    const setListaDeEventos = useSetRecoilState<IEvento[]>(listaDeEventosState);
+
+    setListaDeEventos((listaAnterior) => [...listaAnterior, evento]);
+
+Adendo: Algumas regras sobre uso de hooks 
+
+1- Apenas chame Hooks no nível mais alto. Não chame Hooks dentro de loops (for, foreach, while), condições (if, else if) ou funções aninhadas (por exemplo, numa função que é executada dado um evento de onClick).
+
+2- Apenas chame Hooks a partir de componentes funcionais. Não chame Hooks a partir de funções comuns, fora de componentes React.
+
