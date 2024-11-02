@@ -1,0 +1,14 @@
+Mais sobre o método slice
+
+O método slice retorna valores dependendo da forma como declaramos seus argumentos:
+
+const array = [1, 2, 3, 4, 5]
+
+array.slice(0, 2) -> Isso irá retornar os valores do indice 0 até o 1, sendo eles: (1 e 2);
+
+array.slice(2) -> Isso irá retornar os valores do indice 2 em diante, sendo eles: (3, 4, 5);
+
+Usando um hook personalizado
+
+Para criar um hook personalizado pode fazer um arquivo um o nome "useNomeDoHook.ts", depois escrever uma função e exporta-la para usar em qualquer componente.
+
