@@ -1,0 +1,42 @@
+Usando hooks personalizados
+
+Usando o Recoil, nós podemos encapsular funções que serão usadas dentro dos componentes, criando assim um código mais limpo dentro dos componentes e aderindo ao conceito de responsablidade única.
+Adendo: Uma das boas práticas usando Recoil ou qualquer outro gerenciador de States globais, é não chamar algum hook desse gerenciador dentro de um componente, e sim somente nos hooks personalizados pra ele, pois caso tenhamos que trocar o gerenciador sendo ele "context-APi, redux etc", poderemos refatorar o código de uma forma mais fácil, bastando somente irmos nos hooks personalizados dos componentes.
+
+Criando Hooks personalizados
+
+Para criar um hook personalizado basta criar um arquivo "useNomeDoHook.ts", após isso devemos exportar aquela função e usar dentros dos componentes desejados.
+
+Ex: 
+
+Bloco criando atom do state helloWorld:
+
+const helloWorldState = atom<string>({
+    key: 'helloWorldState',
+    default: 'Hello World!' 
+})
+
+Arquivo: useDigaHelloWorld.ts 
+
+const useDigaHelloWorld = () => {
+    const helloWorld = useRecoilValue(helloWorldState)
+
+    return () => {
+        alert(helloWorld)
+    }
+}
+
+Agora depois de criado, podemos chamar esse hook em qualquer componente
+
+Ex: const botao = () => {
+
+    const digaHelloWorld = useDigaHelloWorld()
+
+    return (
+        <button onClick={() => digaHelloWorld()}> Diga Hello World </button>
+    )
+}
+
+Quando importamos o hook personalizado atribuimos ele a variável "digaHelloWorld", executamos a função imediantamente useDigaHelloWorld(); 
+
+Por isso quando criarmos um hook personalizado devemos retornar uma função, e não criar a lógica diretamente através do bloco dele, quando esse hook é importado e atribuido a uma variável o bloco dele é executado, por conta do fato da gente sempre atribuir ele usando (), ou seja, quando retornamos uma função anônima dentro do hook com a lógica desejada, esse retorno passa para a variavel atribuída "digaHelloWorld", e ela se torna uma função que pode ser chamada a hora que desejarmos e não quando importamos e atribuimos "useDigaHelloWorld()" a ela. 
