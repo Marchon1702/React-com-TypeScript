@@ -1,0 +1,39 @@
+Criando uma selector que recebe dados de uma API com Recoil
+
+Imagina que precisamos usar dados de uma API setando eles no state do Recoil, nessa caso podemos criar um selector e recuperar esse dados fazendo a requisição direto da API.
+
+Ex: 
+
+export const eventosAsync = selector({
+  key: 'eventosAsync',
+  get: async () => {
+    const respostaHttp = await fetch('http://localhost:8080/eventos')
+    const eventosJson: IEvento[] = await respostaHttp.json()
+    return eventosJson.map(evento => ({
+      ...evento,
+      inicio: new Date(evento.inicio),
+      fim: new Date(evento.fim)
+    }))
+  }
+})
+
+Parecido com o selector normal, a única diferença é que ao invés de resgatarmos um método Get, nos utilizamos uam função assincrona para obter a resposta de requisição.
+
+Com Recoil, quando fazemos uma obtenção de dados de uma API devemos obrigatoriamente criar uma componente Suspense, que é um recurso do React utilizado para renderizar outra coisa enquanto a requisição de dados que serão mostrados na tela apareçam. O Suspense tem uma prop chamada fallback, é nela que adiocioamos oque será renderizado enquanto os dados não são obtidos.
+
+Ex:
+
+export default function App() {
+    return (
+        <RecoilRoot>
+            <Suspense fallback={<Element /> ou "Alguma Mensagem Direta"}>
+                <RestoDaAplicacao />
+            </Suspense>
+        </RecoilRoot>
+    )
+}
+
+O Recoil usa uma forma própria para fazer depuração de código, ele redenriza componentes que vigiam a mudança dos states e fazem o log no navegador, na documentação temos diversas formas diferentes de utilizar essa ferramenta.
+
+
+
