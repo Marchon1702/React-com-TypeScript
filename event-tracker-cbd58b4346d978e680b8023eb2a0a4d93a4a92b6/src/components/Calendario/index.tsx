@@ -18,7 +18,7 @@ const Calendario: React.FC = () => {
   const atualizaEvento = useAtualizarEvento();
 
   const eventosKalend = new Map<string, IKalendEvento[]>();
-  const eventos = useListaDeEventos()
+  const eventos = useListaDeEventos();
 
   eventos.forEach((evento) => {
     const chave = evento.inicio.toISOString().slice(0, 10);
@@ -50,7 +50,7 @@ const Calendario: React.FC = () => {
       eventoAtualizado.inicio = new Date(kalendEventoAtualizado.startAt);
       eventoAtualizado.fim = new Date(kalendEventoAtualizado.endAt);
 
-      atualizaEvento(eventoAtualizado)
+      atualizaEvento(eventoAtualizado);
     }
   };
 

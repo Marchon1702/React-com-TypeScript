@@ -1,0 +1,20 @@
+usando seletor com Recoil
+
+Quando temos um state que pode ter seu valor determinado por condições especificas e será reutilizado de forma global na aplicação podemos usar o selector.
+
+Ex:
+
+export const eventosFiltradosState = selector<IEvento[]>({
+  key: "eventosFiltradosState",
+  get: ({ get }) => {
+    const todosOsEventos = get(listaDeEventosState);
+    const filtro: IFiltroDeEventos = get(filtroState);
+    const eventos = todosOsEventos.filter((evento) => {
+        // Lógica a ser implementada...
+    });
+
+    return eventos;
+  }
+});
+
+O conceito da key é o mesmo, oque muda é q usamos o atributo get, e ele recebe uma função que será usada para atribuir um valor ao state caso a condição da funçÃo criada seja atendida.

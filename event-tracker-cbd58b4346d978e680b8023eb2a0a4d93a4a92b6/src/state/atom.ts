@@ -20,3 +20,10 @@ export const listaDeEventosState = atom<IEvento[]>({
     },
   ],
 });
+
+export const filtroState = atom({
+  key: 'filtroState',
+  default: {
+    ambos: true
+  }
+})
