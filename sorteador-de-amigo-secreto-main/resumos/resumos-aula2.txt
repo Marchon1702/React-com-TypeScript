@@ -1,58 +1,95 @@
-Introdução a testes com Jest e React-testing-library
+Como usar useRef
 
-Jest é uma biblioteca usada para criarmos testes na nossa aplicação, o Rtl é uma biblioteca nativa do React que é urilizada para capturarmos componentes na tela e usa-los nos testes.
-
-Para criar um "ambiente de testes" usando o Rtl, devemos criar um arquivo com a extensão ".test.tsx" 
-
-Neste arquivo podemos usar a função test do Jest para iniciarmos o "ambiente".
+useRef é uma biblioteca react usada para referenciar um elemento do componente a uma variavel.
 
 Ex: 
-    test('Funcionalidade que será testada', () => {
-        render(<ComponenteTestado />)
+    
+export default function Formulario() {
 
-        // Encontrando o elemento DOM
-        const input = screen.getByPlaceholderText("Texto escrito no placeholder")
+    const inputRef = useRef<HTMLInputElement>(null);
 
-        // Encontrando um elemento DOM por sua função no HTML
-        const botao = screen.getByRole("button")
-        // Acima é atribuido um elemento que faz a função de ser um button no HTML
+    return (
+    <form onSubmit={adicionarParticipante}>
+      <input
+        ref={inputRef}
+        value={nome}
+        type="text"
+        placeholder="Insira os nomes dos participantes"
+        onChange={(event) => setNome(event.target.value)}
+      />
+      <button disabled={!nome}>Adicionar</button>
+      {mensagemErro && <p role="alert">{mensagemErro}</p>}
+    </form>
+  );
+}
 
-
-        // Verificando se input está no "ComponenteTestado"/Documento
-        expect(input).toBeInDocument()
-
-        // Verificando se botao está desabilitado
-        expect(botao).toBeDisable()
-    })
-
-Resumo de funções
-
-React-testing-library (Rtl)
-
-render = Serve para renderizar o componente para que posteriormente possamos interagir com os elementos dele.
-
-screen = Sinaliza para buscar na "tela"
-.getByPlaceholderText = Busca um elemento DOM pelo oque está escrito em seu placeholder
-.getByRole = Busca um elemento DOM pela sua função no documento 
-
-Métodos Jest
-
-test = Inicia o escopo dos testes
-
-expect = Espera determinada caracteristica
-.toBeInDocument = espera que o elemento esteja no documento
-.toBeDisable = esperar que um elemento esteja com o atribuido disable ativado
-
-Pirâmide de testes
-
-a Pirâmide de testes é localizada de baixo para cima:
-
-3 - interface = É o teste final feito na aplicação por completo e feito simulando que o sistema está sendo usado pelo usuário.
-2 - Serviço/ Integração = São testes feitos usando todas as porções em conjunto.
-1 - Unitário = São testes feitos por porções (componentes, Métodos e funções) isoladas.
-
-Quanto mais alto o nivel ta pirâmide, mais lento e caro ele é.
+No exemplo acima ref é um atributo do input, e ele diz que inputRef é sua referência, todo useRef começa como null, por isso a declaração useRef<HTMLInputElement>(null), está dizendo que inputRef é um elemento html e é nulo como estado inicial.
 
 
+Conhecimentos aprodundados no fluxo de código usando Jest e react-testing-library.
 
+O desenvolvedor do teste vai declarando oque ele deseja que o usuário faca ao longo da sua interação, ou seja, em um teste onde é esperado que caso um valor seja duplicado, uma mensagem de erro deve existir segue todos os passos que o usuário e a aplicação fariam para que o resultado final fosse o esperado.
+
+Ex: 
+
+test("Caso o nome seja duplicado, uma mensagem de erro deve ser inserida.", () => {
+
+    // Declarando que o componente Formulario que será testado e usaremos os States dele estão encapsulados no RecoilRoot.
+
+    render(
+      <RecoilRoot>
+        <Formulario />          
+      </RecoilRoot>
+    );
+
+    No Script abaixo o desenvolvedor descreve passo a passo oque acontecerá até o resultado final que será uma mensagem de erro.
+
+    const input = screen.getByPlaceholderText(
+      "Insira os nomes dos participantes"
+    ); // O script da aplicação deve encontrar um elemento dentro de Formulario que possua o placeholder = "Insira os nomes dos participantes"
+
+    const botao = screen.getByRole("button");
+    // O script da aplicação deve encontrar um elemento dentro do Formulario que tenha o role = "button"
+
+    fireEvent.change(input, {
+      target: {
+        value: "Ana Catarina",
+      },
+    }); // O usuário deve inserir um valor no input
+
+    fireEvent.click(botao); // O usuário deve clicar no botão e submeter o Formulario.
+
+    fireEvent.change(input, {
+      target: {
+        value: "Ana Catarina",
+      },
+    }); // O usuário deve inserir o mesmo valor no input.
+
+    fireEvent.click(botao); // O usuário deve clicar no botão e submeter o Formulario.
+
+    const mensagemDeErro = screen.getByRole("alert"); // O script da aplicação deverá encontrar um elemento com o role = 'alert'
+
+    expect(mensagemDeErro.textContent).toBe("Esse nome já existe na lista"); // O script de teste espera que tenha uma mensagemDeErro com um texto contendo "Esse nome já existe na lista";
+  });
+
+  Diferença entre getByRole e queryByRole
+
+  get = espera que o elemento exista, caso contrário gera um erro.
+
+  query = entende que o elemento pode existir ou não, caso não exista não é retornado nenhum erro.
+
+  Usando FakeTimers
+
+  Quando queremos testar que algo deve acontecer depois de um determinado tempo, como por exemplo através de uma função setTimeOut, usamos o Jest e criamos FakeTimers, ele criar um tempo fake que não está relacionado com o tempo real implementado no javaScript, isso serve para que o script de test não tenha q esperar o tempo real de execuçÃo do código otimizando a resposta do test.
+
+  Quando for a hora de simular a execução de um FakeTimer, chamamos a função jest.runAllTimers.
+
+  Ela executa todos os temporizadores do script, sinalizando que esse determinado tempo tenha passado e logo após podemos inserir a lógica do que deve acontecer depois q o tempo passou.
+
+  jest.runAllTimers deve ser usado dentro de act(), isso garante que todos os states sejam atualizados antes do script teste passar para a próxima linha.
+
+Ex: 
+act(() => {
+    jest.runAllTimers
+})
 
