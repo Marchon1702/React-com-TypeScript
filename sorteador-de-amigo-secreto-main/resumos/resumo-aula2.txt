@@ -80,7 +80,7 @@ test("Caso o nome seja duplicado, uma mensagem de erro deve ser inserida.", () =
 
   Usando FakeTimers
 
-  Quando queremos testar que algo deve acontecer depois de um determinado tempo, como por exemplo através de uma função setTimeOut, usamos o Jest e criamos FakeTimers, ele criar um tempo fake que não está relacionado com o tempo real implementado no javaScript, isso serve para que o script de test não tenha q esperar o tempo real de execuçÃo do código otimizando a resposta do test.
+  Quando queremos testar que algo deve acontecer depois de um determinado tempo, como por exemplo através de uma função setTimeOut, usamos o Jest e criamos FakeTimers, ele criar um tempo fake que não está relacionado com o tempo real implementado no javaScript, isso serve para que o script de test não tenha q esperar o tempo real de execução do código otimizando a resposta do test.
 
   Quando for a hora de simular a execução de um FakeTimer, chamamos a função jest.runAllTimers.
 
