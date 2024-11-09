@@ -1,7 +1,7 @@
 react-router-dom
 
 Em uma aplicação com HTML, CSS e JS puro, a criação de diferentes páginas seria feita com diversos HTML refeitos do zero, 
-send conectados através da tag "a", e usando modules para relativisar as variáveis, com React, usamos o react-router-dom,
+sendo conectados através da tag "a", e usando modules para relativisar as variáveis, com React, usamos o react-router-dom,
 trabalhando com o modelo SPA "single page application", usamos o router-dom para otmizar a navegação entre diferentes rotas,
 além de podermos reaproveitar componentes, com Router-dom não utilizamos a tag "a" para mudança de rotas e sim o componente
 LINK, sua diferença para "a" é que o "a": Renderiza o HTML por completo, oque vai contra a finalidade do React, que é mudar

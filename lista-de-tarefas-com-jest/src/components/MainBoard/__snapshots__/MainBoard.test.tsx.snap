@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ações MainBoard A MainBoard deve renderizar corretamente 1`] = `
+<div>
+  <section
+    class="main-board"
+  >
+    <header>
+      <h1>
+        Lista de Tarefas
+      </h1>
+    </header>
+    <main>
+      <section
+        class="task-board"
+      >
+        <form
+          role="form"
+        >
+          <input
+            placeholder="Digite uma nova tarefa"
+            required=""
+            type="text"
+            value=""
+          />
+          <button>
+            Adicionar
+          </button>
+        </form>
+        <ul
+          role="unordenedList"
+        />
+      </section>
+    </main>
+    <footer>
+      Desenvolvido por Matheus Marchon
+    </footer>
+  </section>
+</div>
+`;

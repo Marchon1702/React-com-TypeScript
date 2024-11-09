@@ -33,7 +33,7 @@ describe("Uma lista preenchida de participantes", () => {
     (useListaParticipantes as jest.Mock).mockReturnValue(participantes);
   });
 
-  test("ListaParticipantes deve ser renderizado sem elementos", () => {
+  test("ListaParticipantes deve ser renderizado com todos os elementos", () => {
     render(
       <RecoilRoot>
         <ListaParticipantes />
