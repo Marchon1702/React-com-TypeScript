@@ -1,0 +1,45 @@
+Como funcionam os compoenentes React por debaixo dos panos.
+
+Quando criamos um componente React fazendo com que ele retorne um JSX, na verdade estamos executando por debaixo dos panos a função createElement que recebe como parâmetro a tag HTML a ser criada, o seu className e seus filhos.
+
+Ex: 
+    element = React.createElement(
+        'h1', (tag)
+        {className: "titulo"},
+        "Hello World!"  (children)
+    )
+
+Após criado, um componente react retorna um objeto com diversos atributos:
+
+$$typeof: Symbol(react.element)
+key: null
+props: {}
+ref: null
+type: ƒ Titulo()
+_owner: FiberNode {tag: 0, key: null, stateNode: null, elementType: ƒ, type: ƒ, …}
+_store: {validated: false}
+_self: undefined
+_source: {fileName: 'C:\\Arquivos Dev\\meus-repositorios\\react-com-typescript\\aluroni-performance-aula1.2\\src\\App.tsx', lineNumber: 4, columnNumber: 17}
+[[Prototype]]: Object
+
+Esse Objeto contém atributos que servem para melhorar a performace das atualizações que o React executa no DOM. Temos key, props, ref e etc...
+
+A estrutura do React
+
+O React tem um sistema de hierarquia de componentes inserido no index.tsx, o principal escopo do React que usa a lib React.DOM para executar algumas ações referentes ao DOM real de uma página.
+
+React.DOM.render(), recebe como parâmetro o componente central da aplicação, geralemente chamado de App ou Router, esse componente comporta todos os outros, além desse parâmetro, o render recebe também um elemento HTML onde será injetado os elementos HTML, é uma div com o id "root".
+
+Ex: 
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+Ou seja os compoenentes do App para baixo serão renderizados dentro da div com o id Root do código HTML.
+
+Virtual DOM
+
+É oque deixa o React tão performático, ele funciona como uma referência ao DOM "real", quando algo muda no virtual DOM ocorre um processo chamado reconciliação, onde tem uma comparação entre o Virtual DOM e o Real, quando é detectado alguma mudança entre eles o DOM real só altera oque foi mudado no virtual DOM, assim o DOM real não precisa se renderizar 100% a cada mudança em uma página HTML, causando assim um efeito de reatividade, e otimizando os processos internos das páginas dinâmicas e até mesmo a interação do usuário. O virtual DOM só é "ativado" através de mudanças em props ou States. 

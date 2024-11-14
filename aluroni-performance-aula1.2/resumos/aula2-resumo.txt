@@ -1,0 +1,13 @@
+Usando memo para controlar renderizações desnecessárias
+
+O memo é uma função que recebe como parâmetro um componente React e uma função que retorna um boleano, a sua funcionalidade tem como objetivo comparar o valor das props de um componente. 
+A comparação de props é feita através de props atuais e props anteriores, essas props podem ser usadas dentro da função de parâmetro do memo como propsAnteriores e proximasProps, caso propsAnteriores seja igual proximasProps, então o componente não precisa ser renderizado novamente pois nenhum valor que ele depende para renderizar foi alterado, então a função que retorna um boleano retorna true. (As props são iguais), caso as props sejam diferentes a função retorna false.(As props não são iguais).
+
+Caso de uso da função memo
+
+Caso tenhamos itens de listas, ou componentes que são renderizados de forma condicional, o uso do memo é essencial, pois caso não seja feito o componente se remontará a cada interação feita com as props mesmo que elas não tenham sofrido nenhuma alteração.
+
+Adendo: o memo pesa um pouco na questão da perfomace, então deve ser usado com sabedoria. Os melhores casos de uso foram citados acima, pois neles o memo pesa menos do que renderizações desnecessárias.
+
+
+
