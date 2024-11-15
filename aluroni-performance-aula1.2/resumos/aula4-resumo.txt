@@ -1,0 +1,24 @@
+Como memoizar componentes de pacotes internos
+
+Sabemos que para memoizar componentes criados por nós, basta usar o memo(MeuComponente) na linha de exports, agora quando usamos componentes exportados de bibliotecas externas devemos usar o hook useMemo.
+
+Imagine que importamos um componente de react-icons e queremos usar ele no nosso componente de forma memoizada, ou seja que ele não seja renderizado de forma desnecessária. Podemos usar o hook useMemo, ele possui alguma diferenças em relação ao memo, pois ele é bem semelhante com o useEffect. ele recebe como parâmetro uma função anônima que deve retornar o componente externo, e um array de dependencias onde as props que estiverem dentro dele, vão servir como referência para saber se aquele componente deve ser renderizado ou não. A particularidade o useMemo é que deve ser sempre atributo uma variavel, e essa variavel deve ser declarada dentro dentro o jsx para que seja renderizada.
+
+Ex:
+
+const MeuComponente = () => {
+    const iconeExterno = useMemo(() => <ReactIcon />, []) "Caso queira ser usada o controle de porps basta colocar no array".
+
+    return (
+        <div>
+            <h1>Titulo</h1>
+            {iconeExterno}
+        </div>
+    )
+}
+
+Adendo: podemos usar memo para memoizar componentes externos, mas para isso deveria ser criado dois componentes em um arquivo só, oque tornaria o código menos limpo, então utilizamos memo para memoizar componentes proprios e useMemo para componentes externos.
+
+Como analisar se um componente deve ser memoizado
+
+Caso o componente seja apenas um icone pequeno, não vale apena memoiza-lo pois essa ação puxa um pouco de performace por si só, em comparação a re-renderização de algo pequeno, memo é mais pesado. O uso de memo deve ser analisado com muita atenção, tem certos casos que realmente não faz sentido que ele seja utilizado.

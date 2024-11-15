@@ -1,0 +1,8 @@
+Como funcionam as keys no React
+
+No React, o atributo key é usado para identificar de forma única os elementos de uma lista dentro do virtual DOM. Quando renderizamos uma lista usando o método map, é obrigatório fornecer uma key para cada item. Essa key deve ser única em relação aos outros itens da lista.
+
+As keys permitem ao React rastrear mudanças nos elementos da lista de maneira eficiente. Isso é especialmente importante em listas dinâmicas, onde itens podem ser adicionados, removidos ou reordenados em resposta a interações do usuário. Sem keys únicas, o React pode precisar recriar ou reordenar desnecessariamente os elementos, afetando o desempenho da aplicação.
+
+Em resumo, as keys ajudam o React a sincronizar as alterações no virtual DOM com o DOM real, otimizando o processo de renderização.
+

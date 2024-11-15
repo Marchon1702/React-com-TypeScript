@@ -9,5 +9,18 @@ Caso tenhamos itens de listas, ou componentes que são renderizados de forma con
 
 Adendo: o memo pesa um pouco na questão da perfomace, então deve ser usado com sabedoria. Os melhores casos de uso foram citados acima, pois neles o memo pesa menos do que renderizações desnecessárias.
 
+Exemplo de uso de memo em um componente
 
+const ComponenteComMemo = () => {
+    return (
+        <li>Item de Lista</li>
+    )
+}
 
+export default memo(ComponenteComMemo)
+
+ou caso queiramos acessar as propsAnteriores e proximasProps diretamente
+
+export default memo(ComponenteComMemo, (propsAnteriores, proximasProps) => {
+    return true (As props são iguais);
+})
