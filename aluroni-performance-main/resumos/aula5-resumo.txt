@@ -1,0 +1,39 @@
+Como resolver problemas de performace nas importações
+
+O React por padrão utilizada o import sincrono (import Componente from './Componente'), esse importa é realizado assim que o componente é chamado na tela. Agora imagine no componente App ou Routes, onde se importa diversos outros componentes que são renderizados nas rotas, todos eles são importados de uma só vez, e eles não são usados todos ao mesmo tempo. Quando criamos a build de produção do React, podemos ver que por padrão ele gera apenas dois arquivos, um de js e outro de css, e esses dois arquivos contém todos os códigos de Js e Css compactados em suas pastas respectivamente. Isso implica diretamente na perfommace porque muitos desses códigos gerados não estão sendo usados naquele momento inicial da aplicação então para ressolver issso utilizando um conceito chamado de code spliting (separação de código), nele serve para separarmos melhor os arquivos "biuldados" para que eles só sejam chamados quando forem realmente usados.
+
+Visando a resolução desse problema de import descenessário, podemos optar por dynamic imports (importes dinâmicos), através do React.lazy, podemos criar imports assicronos que serão feitos apenas quando determinado componente for utilizado.
+
+Ex: 
+    export default function App() {
+         return (
+            <Routes>
+                <Route path="/" element={<PaginaBase />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/minha-conta" element={<AreaLogada />}>
+                    <Route path="pedidos" element={<Pedidos />} />
+                </Route>
+            </Routes>
+    </Routes>
+  );
+}
+
+Olhando o componente acima podemos perceber que temos diversas rotas que renderizam componentes, essa rotas são renderizadas apenas quando são clicadas, mas com imports assincronos todos os imports ja foram feitos na primeira vez que o projeto iniciou pro usuário. Para trasnformar os imports em dinâmicos usamos React.lazy.
+
+Ex:    
+    Ao invés de: import Home from "../paginas/Home";
+    usamos: const Home = lazy(() => import("../paginas/Home"))
+
+Com o lazy, agora o componente Home será renderizado apenas quando sua rota for acessada. E o code-splinting acontecerá pois na sua criação de biuld será gerado arquivos mais separados que serão usados apenas quando forem necessários.
+
+Adendo: Quando usamos lazy imports ou alguma função assincrona o React nos obriga a utilizar o componente Suspense com fallBack, ele serve para mostrar algo ao usuário na tela enquanto a execução assíncrona não termina.
+
+Simulação de velocidade de internet
+
+Para termos um controle maior de certas situações, podemos utilizar no devTools uma simulação de velocidade de internet, para que possamos ajustar nossas aplicações a situações de diferentes usuários. Em devTools basta ir em "no Throttling" e mudar para a velocidade desejada.
+
+Diferença entre useMemo e useCallback
+
+useMemo é mais utilizado para detectar renderizações desnecessarias, podendo ser usado também para componente externos.
+
+o useCallback é utilizado guardar formulas de funções grandes, quando temos uma função escrita em um componente e ele é renderizado aquela função é executada em todas as renderizações, se essa função for tiver um script muito pesado ou grande isso acaba afetando a performace, então o useCallback só refaz a função quando um valor rececebido por referência é alterado.
